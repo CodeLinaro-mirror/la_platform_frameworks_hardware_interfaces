@@ -155,7 +155,7 @@ ASensorEventQueue *ASensorManager::createEventQueue(
         return NULL;
     }
 
-    queue->incStrong(NULL);
+    queue->incStrong(NULL /* id */);
 
     LOG(VERBOSE) << "Returning event queue " << queue.get();
     return queue.get();
@@ -166,7 +166,7 @@ void ASensorManager::destroyEventQueue(ASensorEventQueue *queue) {
 
     queue->invalidate();
 
-    delete queue;
+    queue->decStrong(NULL /* id */);
     queue = NULL;
 }
 
@@ -361,6 +361,11 @@ int ASensor_getFifoReservedEventCount(ASensor const* sensor) {
 const char* ASensor_getStringType(ASensor const* sensor) {
     RETURN_IF_SENSOR_IS_NULL(NULL);
     return reinterpret_cast<const SensorInfo *>(sensor)->typeAsString.c_str();
+}
+
+extern "C" float ASensor_getMaxRange(ASensor const* sensor) {
+    RETURN_IF_SENSOR_IS_NULL(nanf(""));
+    return reinterpret_cast<const SensorInfo *>(sensor)->maxRange;
 }
 
 #if 0
