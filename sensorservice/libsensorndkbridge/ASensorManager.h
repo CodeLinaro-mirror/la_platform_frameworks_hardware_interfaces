@@ -22,6 +22,7 @@
 #include <android/sensor.h>
 #include <utils/Mutex.h>
 #include <utils/RefBase.h>
+#include <android-base/macros.h>
 
 struct ALooper;
 
