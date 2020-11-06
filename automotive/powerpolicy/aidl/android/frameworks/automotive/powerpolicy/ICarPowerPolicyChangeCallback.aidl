@@ -20,20 +20,10 @@ import android.frameworks.automotive.powerpolicy.CarPowerPolicy;
 
 /**
  * ICarPowerPolicyChangeCallback is notified when a power policy changes.
- * It takes time for components' power state to be set to the expected value. So, onPolicyChanging
- * is called when a policy change is requested, and onPolicyChanged is finally called when all power
- * components are set to the expected values.
  */
 
 @VintfStability
 oneway interface ICarPowerPolicyChangeCallback {
-  /**
-   * Called when a power policy change is requested.
-   *
-   * @param policy Policy that the system is changing to.
-   */
-  void onPolicyChanging(in CarPowerPolicy policy);
-
   /**
    * Called when a power policy is fully changed.
    *
