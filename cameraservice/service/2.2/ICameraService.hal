@@ -14,19 +14,9 @@
  * limitations under the License.
  */
 
-package android.frameworks.automotive.powerpolicy;
+package android.frameworks.cameraservice.service@2.2;
 
-/**
- * Structure to store the current policy state.
- */
-parcelable PolicyState {
-  /**
-   * The current power policy ID.
-   */
-  @utf8InCpp String policyId;
+import android.frameworks.cameraservice.service@2.1::ICameraService;
 
-  /**
-   * The current power policy group ID.
-   */
-  @utf8InCpp String policyGroupId;
-}
+interface ICameraService extends @2.1::ICameraService {
+};
