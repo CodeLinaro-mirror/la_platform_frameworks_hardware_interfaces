@@ -12,7 +12,8 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *////////////////////////////////////////////////////////////////////////////////
+ */
+///////////////////////////////////////////////////////////////////////////////
 // THIS FILE IS IMMUTABLE. DO NOT EDIT IN ANY CASE.                          //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -49,4 +50,5 @@ enum PowerComponent {
   LOCATION = 14,
   MICROPHONE = 15,
   CPU = 16,
+  MINIMUM_CUSTOM_COMPONENT_VALUE = 1000,
 }
