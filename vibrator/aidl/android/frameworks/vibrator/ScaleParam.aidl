@@ -16,13 +16,18 @@
 
 package android.frameworks.vibrator;
 
-import android.frameworks.vibrator.VibrationTypeMask;
-
 /**
  * Vibration scale for one or more vibration types
  */
 @VintfStability
 parcelable ScaleParam {
-    VibrationTypeMask types; // combined bitfield of VibrationTypeMask
+    const int TYPE_ALARM = 1 << 0; // Alarm usage
+    const int TYPE_NOTIFICATION = 1 << 1; // Notification and communication request usages
+    const int TYPE_RINGTONE = 1 << 2; // Ringtone usage
+    const int TYPE_INTERACTIVE = 1 << 3; // Touch and hardware feedback usages
+    const int TYPE_MEDIA = 1 << 4; // Media and unknown usages
+
+    // combined bitfield of ScaleParam::TYPE* values
+    int typesMask;
     float scale;
 }

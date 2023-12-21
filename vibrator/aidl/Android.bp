@@ -21,7 +21,6 @@ package {
 aidl_interface {
     name: "android.frameworks.vibrator",
     srcs: ["android/frameworks/vibrator/*.aidl"],
-    owner: "google",
     vendor_available: true,
     host_supported: true,
     stability: "vintf",

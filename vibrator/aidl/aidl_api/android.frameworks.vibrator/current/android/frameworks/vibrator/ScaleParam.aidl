@@ -34,6 +34,11 @@
 package android.frameworks.vibrator;
 @VintfStability
 parcelable ScaleParam {
-  android.frameworks.vibrator.VibrationTypeMask types;
+  int typesMask;
   float scale;
+  const int TYPE_ALARM = (1 << 0) /* 1 */;
+  const int TYPE_NOTIFICATION = (1 << 1) /* 2 */;
+  const int TYPE_RINGTONE = (1 << 2) /* 4 */;
+  const int TYPE_INTERACTIVE = (1 << 3) /* 8 */;
+  const int TYPE_MEDIA = (1 << 4) /* 16 */;
 }

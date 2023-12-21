@@ -21,7 +21,6 @@
 #include <aidl/android/frameworks/vibrator/IVibratorControlService.h>
 #include <aidl/android/frameworks/vibrator/IVibratorController.h>
 #include <aidl/android/frameworks/vibrator/ScaleParam.h>
-#include <aidl/android/frameworks/vibrator/VibrationTypeMask.h>
 #include <android-base/logging.h>
 #include <android/binder_auto_utils.h>
 #include <android/binder_manager.h>
@@ -37,7 +36,6 @@ using ::aidl::android::frameworks::vibrator::IVibratorController;
 using ::aidl::android::frameworks::vibrator::IVibratorControlService;
 using ::aidl::android::frameworks::vibrator::ScaleParam;
 using ::aidl::android::frameworks::vibrator::VibrationParam;
-using ::aidl::android::frameworks::vibrator::VibrationTypeMask;
 using ::android::getAidlHalInstanceNames;
 using ::android::PrintInstanceNameToString;
 using ndk::SpAIBinder;
@@ -46,9 +44,9 @@ using ::testing::InitGoogleTest;
 using ::testing::TestWithParam;
 using ::testing::ValuesIn;
 
-std::vector<VibrationParam> generateVibrationParams(VibrationTypeMask in_type, float scale) {
+std::vector<VibrationParam> generateVibrationParams(int in_typesMask, float scale) {
     ScaleParam scaleParam = ScaleParam();
-    scaleParam.types = in_type;
+    scaleParam.typesMask = in_typesMask;
     scaleParam.scale = scale;
     VibrationParam vibrationParam = VibrationParam(scaleParam);
     std::vector<VibrationParam> vibrationParams = {vibrationParam};
@@ -59,7 +57,7 @@ class VibratorController : public BnVibratorController {
    public:
     ~VibratorController() override = default;
 
-    ndk::ScopedAStatus requestVibrationParams(VibrationTypeMask in_type,
+    ndk::ScopedAStatus requestVibrationParams(int in_typesMask,
                                               int64_t in_deadlineElapsedRealtimeMillis,
                                               const ::ndk::SpAIBinder& in_requestToken) override {
         if (in_requestToken == nullptr) {
@@ -68,15 +66,14 @@ class VibratorController : public BnVibratorController {
         }
 
         LOG(INFO) << "Vibrator controller received a request for vibration params for type: "
-                  << toString(in_type)
-                  << ", with a timeout of: " << in_deadlineElapsedRealtimeMillis;
+                  << in_typesMask << ", with a timeout of: " << in_deadlineElapsedRealtimeMillis;
 
         std::shared_ptr<IVibratorControlService> service =
             IVibratorControlService::fromBinder(in_requestToken);
 
         EXPECT_TRUE(service
                         ->onRequestVibrationParamsComplete(
-                            in_requestToken, generateVibrationParams(in_type, /* scale= */ 1))
+                            in_requestToken, generateVibrationParams(in_typesMask, /* scale= */ 1))
                         .isOk());
 
         return ndk::ScopedAStatus::ok();
@@ -110,7 +107,7 @@ TEST_P(VibratorControlServiceTest, RequestVibrationParamsTest) {
     EXPECT_TRUE(service->registerVibratorController(vibratorController).isOk());
 
     EXPECT_TRUE(vibratorController
-                    ->requestVibrationParams(VibrationTypeMask::ALARM,
+                    ->requestVibrationParams(ScaleParam::TYPE_ALARM,
                                              /* deadlineElapsedRealtimeMillis= */ 50,
                                              service->asBinder())
                     .isOk());
@@ -125,13 +122,12 @@ TEST_P(VibratorControlServiceTest, SetAndClearVibrationParamsTest) {
 
     EXPECT_TRUE(
         service
-            ->setVibrationParams(generateVibrationParams(VibrationTypeMask::ALARM, /* scale= */ 1),
+            ->setVibrationParams(generateVibrationParams(ScaleParam::TYPE_ALARM, /* scale= */ 1),
                                  vibratorController->getDefaultImpl())
             .isOk());
 
     EXPECT_TRUE(
-        service
-            ->clearVibrationParams(VibrationTypeMask::ALARM, vibratorController->getDefaultImpl())
+        service->clearVibrationParams(ScaleParam::TYPE_ALARM, vibratorController->getDefaultImpl())
             .isOk());
 
     EXPECT_TRUE(service->unregisterVibratorController(vibratorController).isOk());

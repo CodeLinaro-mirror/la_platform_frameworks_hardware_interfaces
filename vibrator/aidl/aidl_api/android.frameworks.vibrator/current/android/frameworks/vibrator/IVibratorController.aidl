@@ -35,5 +35,5 @@ package android.frameworks.vibrator;
 /* @hide */
 @VintfStability
 interface IVibratorController {
-  oneway void requestVibrationParams(in android.frameworks.vibrator.VibrationTypeMask type, in long deadlineElapsedRealtimeMillis, in IBinder requestToken);
+  oneway void requestVibrationParams(in int typesMask, in long deadlineElapsedRealtimeMillis, in IBinder requestToken);
 }

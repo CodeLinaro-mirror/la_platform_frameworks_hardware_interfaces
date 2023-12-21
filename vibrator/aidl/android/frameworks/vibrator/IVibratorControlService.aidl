@@ -18,7 +18,6 @@ package android.frameworks.vibrator;
 
 import android.frameworks.vibrator.IVibratorController;
 import android.frameworks.vibrator.VibrationParam;
-import android.frameworks.vibrator.VibrationTypeMask;
 
 /**
  * IVibratorControlService is a service that allows clients to register IVibratorControllers to
@@ -60,10 +59,10 @@ interface IVibratorControlService {
      * settings.
      * <p>If the provided controller is not the registered one, the request must be ignored.
      *
-     * @param type The combined bitfield of VibrationTypeMask to be cleared
+     * @param typesMask The combined bitfield of vibration types to be cleared
      * @param token  The token to register a death recipient to expire these params
      */
-    oneway void clearVibrationParams(in VibrationTypeMask types, in IVibratorController token);
+    oneway void clearVibrationParams(in int typesMask, in IVibratorController token);
 
     /**
      * Notifies the VibrationControlService of new VibrationParams.
