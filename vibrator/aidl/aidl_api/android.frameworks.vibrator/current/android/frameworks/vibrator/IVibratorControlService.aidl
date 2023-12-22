@@ -38,6 +38,6 @@ interface IVibratorControlService {
   oneway void registerVibratorController(in android.frameworks.vibrator.IVibratorController controller);
   oneway void unregisterVibratorController(in android.frameworks.vibrator.IVibratorController controller);
   oneway void setVibrationParams(in android.frameworks.vibrator.VibrationParam[] params, in android.frameworks.vibrator.IVibratorController token);
-  oneway void clearVibrationParams(in android.frameworks.vibrator.VibrationTypeMask types, in android.frameworks.vibrator.IVibratorController token);
+  oneway void clearVibrationParams(in int typesMask, in android.frameworks.vibrator.IVibratorController token);
   oneway void onRequestVibrationParamsComplete(in IBinder requestToken, in android.frameworks.vibrator.VibrationParam[] result);
 }

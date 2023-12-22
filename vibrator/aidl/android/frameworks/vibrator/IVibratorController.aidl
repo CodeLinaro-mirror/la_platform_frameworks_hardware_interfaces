@@ -16,8 +16,6 @@
 
 package android.frameworks.vibrator;
 
-import android.frameworks.vibrator.VibrationTypeMask;
-
 /**
  * IVibratorController is an interface that allows clients to request the VibrationParams for the
  * specified vibration types. If the request is longer than the specified deadline, the result will
@@ -32,10 +30,10 @@ interface IVibratorController {
      * <p> If the request takes longer than the specified deadline, the request must be ignored by
      * the caller.
      *
-     * @param type                          The type of vibration queried
+     * @param typesMask                     The combined bitfield of vibration types queried
      * @param deadlineElapsedRealtimeMillis The request deadline, result ignored after this
      * @param requestToken                  The token for the async result, used by the service
      */
-    oneway void requestVibrationParams(in VibrationTypeMask type,
+    oneway void requestVibrationParams(in int typesMask,
             in long deadlineElapsedRealtimeMillis, in IBinder requestToken);
 }
