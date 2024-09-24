@@ -34,4 +34,5 @@ enum PowerComponent {
   LOCATION = 14,
   MICROPHONE = 15,
   CPU = 16,
+  MINIMUM_CUSTOM_COMPONENT_VALUE = 1000,
 }

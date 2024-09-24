@@ -21,4 +21,6 @@ parcelable CarPowerPolicy {
   @utf8InCpp String policyId;
   android.frameworks.automotive.powerpolicy.PowerComponent[] enabledComponents;
   android.frameworks.automotive.powerpolicy.PowerComponent[] disabledComponents;
+  int[] enabledCustomComponents = {};
+  int[] disabledCustomComponents = {};
 }

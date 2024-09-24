@@ -33,7 +33,10 @@ aidl_interface {
             enabled: true,
         },
     },
-    versions: ["1"],
+    versions: [
+        "1",
+        "2",
+    ],
 }
 
 aidl_interface {

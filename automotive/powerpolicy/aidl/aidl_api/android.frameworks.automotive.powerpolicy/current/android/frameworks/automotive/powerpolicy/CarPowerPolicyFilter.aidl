@@ -19,4 +19,5 @@ package android.frameworks.automotive.powerpolicy;
 @VintfStability
 parcelable CarPowerPolicyFilter {
   android.frameworks.automotive.powerpolicy.PowerComponent[] components;
+  int[] customComponents = {};
 }
