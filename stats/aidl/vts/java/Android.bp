@@ -17,3 +17,37 @@
 package {
     default_applicable_licenses: ["Android-Apache-2.0"],
 }
+
+java_test_host {
+    name: "VtsVendorAtomHostJavaTest",
+    srcs: [
+        "src/**/*.java",
+        "test_vendor_atom.proto",
+        ":libstats_atom_options_protos",
+    ],
+    test_suites: [
+        "vts",
+        "general-tests",
+    ],
+    libs: [
+        "compatibility-host-util",
+        "cts-tradefed",
+        "host-libprotobuf-java-full",
+        "platformprotos",
+        "tradefed",
+        "truth",
+    ],
+    static_libs: [
+        "cts-statsd-atom-host-test-utils",
+    ],
+    data: [
+        ":VtsVendorAtomJavaTest",
+    ],
+    proto: {
+        type: "full",
+        include_dirs: [
+            "external/protobuf/src",
+            "frameworks/proto_logging/stats",
+        ],
+    },
+}
