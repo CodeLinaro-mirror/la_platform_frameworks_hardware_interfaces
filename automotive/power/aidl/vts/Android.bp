@@ -15,6 +15,7 @@
 //
 
 package {
+    default_team: "trendy_team_aaos_power_triage",
     default_applicable_licenses: ["Android-Apache-2.0"],
 }
 
@@ -52,10 +53,12 @@ cc_test {
         "VtsAidlPowerServerTargetTest.cpp",
     ],
     shared_libs: [
+        "libaconfig_storage_read_api_cc",
         "libbinder",
         "libbinder_ndk",
     ],
     static_libs: [
+        "android.car.feature-aconfig-cpp",
         "android.frameworks.automotive.power-V1-ndk",
         "android.frameworks.automotive.powerpolicy-V3-ndk",
         "libgmock",
